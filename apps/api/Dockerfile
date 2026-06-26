@@ -19,6 +19,22 @@ COPY packages/ ./packages/
 COPY apps/api/ ./apps/api/
 COPY apps/dashboard/ ./apps/dashboard/
 
+# # # #
+# Installiere ALLE Workspaces vollständig
+RUN pnpm install --recursive
+
+# Baue Shared-Package
+RUN pnpm --filter @telivityhaip/shared run build
+
+# Baue Database-Package
+RUN pnpm --filter @telivityhaip/database run build
+
+# # #
+
+# Build workspace packages
+# RUN pnpm --filter @telivityhaip/shared run build
+# RUN pnpm --filter @telivityhaip/database run build
+
 # Build workspace packages
 RUN pnpm --filter @telivityhaip/shared run build
 RUN pnpm --filter @telivityhaip/database run build
